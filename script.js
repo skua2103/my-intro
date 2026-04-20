@@ -23,4 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => {
         observer.observe(section);
     });
+
+    // スクロールインジケーターのクリックイベント
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const mainSection = document.querySelector('main');
+            if (mainSection) {
+                mainSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
 });
