@@ -1,0 +1,202 @@
+:root {
+    --bg-color: #0b1c11; /* 深緑背景 */
+    --text-color: #4af626; /* ターミナルグリーン */
+    --accent-color: #2e8b57; /* アクセント用緑 */
+    --box-bg: rgba(74, 246, 38, 0.05); /* 半透明の緑 */
+    --border-color: #4af626; /* 境界線の緑 */
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'DotGothic16', sans-serif;
+    overflow-x: hidden;
+}
+
+/* レトロなブラウン管モニタ特有の走査線（スキャンライン）風エフェクト */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0,0,0,0.2) 50%,
+        rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+h1, h2, .subtitle {
+    font-family: 'Press Start 2P', 'DotGothic16', monospace;
+    text-shadow: 2px 2px 0px var(--accent-color);
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.header {
+    text-align: center;
+    padding: 10vh 20px 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-container {
+    width: 150px;
+    height: 150px;
+    border: 4px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(74, 246, 38, 0.4);
+    image-rendering: auto; /* 生成画像の特性によって滑らかに */
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    letter-spacing: normal;
+}
+
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.terminal-box {
+    background-color: var(--box-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    margin-bottom: 3rem;
+    border-radius: 5px;
+    box-shadow: inset 0 0 15px rgba(74, 246, 38, 0.1);
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.terminal-box:hover {
+    transform: translateY(-5px);
+    box-shadow: inset 0 0 15px rgba(74, 246, 38, 0.2), 0 5px 20px rgba(74, 246, 38, 0.15);
+}
+
+/* レトロな枠線のダブルレイヤー装飾 */
+.terminal-box::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 1px solid rgba(74, 246, 38, 0.3);
+    z-index: -1;
+    border-radius: 8px;
+}
+
+.terminal-box p {
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-size: 1.15rem;
+}
+
+.terminal-box p:last-child {
+    margin-bottom: 0;
+}
+
+.terminal-box strong {
+    color: #fff;
+    text-shadow: 0 0 5px var(--text-color);
+}
+
+footer {
+    text-align: center;
+    padding: 40px 20px;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
+/* スクロールアニメーション関連 */
+.content-section {
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in {
+    transform: scale(0.95);
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.slide-up {
+    transform: translateY(60px);
+}
+.slide-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* レトロ文字グリッチアニメーション */
+h2:hover {
+    animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-5deg); }
+    40% { transform: skew(5deg); }
+    60% { transform: skew(-2deg); }
+    80% { transform: skew(2deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    h2 {
+        font-size: 1rem;
+    }
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+    .terminal-box {
+        padding: 15px;
+    }
+    .terminal-box p {
+        font-size: 1rem;
+    }
+}
